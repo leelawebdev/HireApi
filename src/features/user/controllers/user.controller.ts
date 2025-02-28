@@ -11,6 +11,7 @@ class UserController {
   }
 
   async create(req: Request, res: Response, nect: NextFunction) {
+    console.log(req.body);
     const { name, email, password, role } = req.body;
 
     const user = await prisma.user.create({
