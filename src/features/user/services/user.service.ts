@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import prisma from '../../../globals/prisma';
+import { BadRequestException } from '../../../globals/cores/error.core';
 
 class UserService {
   async getAll(): Promise<User[]> {
