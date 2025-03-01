@@ -27,16 +27,10 @@ class AuthController {
   }
 
   async getCurrentUser(req: Request, res: Response, next: NextFunction) {
-    //Get the access token
-    const accessToken = req.cookies?.accessToken;
-    if (!accessToken) throw new BadRequestException('Please provide the token');
-    //verify the accesstoken
-    const user = jwt.verify(accessToken, process.env.JWT_SECRET!);
-
     //extract user details from access token
     res.status(StatusCodes.OK).json({
       message: 'current User Details',
-      data: user,
+      data: req.currentUser,
     });
   }
 }
