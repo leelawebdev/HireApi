@@ -6,5 +6,4 @@ import candidateProfileRoutes from '../../features/candidate-profile/routes/cand
 export function appRoutes(app: Application) {
   app.use('/api/v1/users', userRoutes);
   app.use('/api/v1/auth', authRoutes);
-  app.use('/api/v1/candidate-profiles', candidateProfileRoutes);
 }
