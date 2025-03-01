@@ -20,6 +20,7 @@ class AuthService {
     });
 
     const accessToken = await generateToken(user);
+
     return accessToken;
   }
 
