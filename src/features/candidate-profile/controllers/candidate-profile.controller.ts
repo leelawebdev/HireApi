@@ -33,6 +33,17 @@ class CandidateProfileController {
       data: candidateProfile,
     });
   }
+  async update(req: Request, res: Response, next: NextFunction) {
+    const candidate = await candidateProfileService.update(
+      +req.params.id,
+      req.body,
+    );
+
+    res.status(StatusCodes.OK).json({
+      message: 'candidate profile updated succesfully',
+      data: candidate,
+    });
+  }
 }
 
 export default new CandidateProfileController();

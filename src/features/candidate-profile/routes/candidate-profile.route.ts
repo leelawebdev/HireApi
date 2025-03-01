@@ -21,4 +21,10 @@ candidateProfileRoutes.post(
   asyncWrapper(candidateProfileController.create),
 );
 
+candidateProfileRoutes.patch(
+  '/:id',
+  verifyUser,
+  asyncWrapper(candidateProfileController.update),
+);
+
 export default candidateProfileRoutes;

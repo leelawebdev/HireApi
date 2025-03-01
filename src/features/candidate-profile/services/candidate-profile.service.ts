@@ -36,6 +36,25 @@ class CandidateProfileService {
 
     return candidateProfile;
   }
+
+  async update(id: number, requestBody: any) {
+    await this.getCandidateById(id);
+
+    const { address, birth_date, cv, full_name, gender, phone } = requestBody;
+
+    const candidate = await prisma.candidateProfile.update({
+      where: { id },
+      data: {
+        address,
+        birth_date: birth_date ? new Date(birth_date) : undefined,
+        cv,
+        full_name,
+        gender,
+        phone,
+      },
+    });
+    return candidate;
+  }
 }
 
 export default new CandidateProfileService();
