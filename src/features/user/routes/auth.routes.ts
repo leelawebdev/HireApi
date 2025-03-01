@@ -5,5 +5,6 @@ const authRoutes = express.Router();
 
 authRoutes.post('/signup', asyncWrapper(authController.signUp));
 authRoutes.post('/signin', asyncWrapper(authController.signIn));
+authRoutes.get('/me', asyncWrapper(authController.getCurrentUser));
 
 export default authRoutes;
