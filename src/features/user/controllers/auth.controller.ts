@@ -12,9 +12,12 @@ class AuthController {
     });
   }
 
-  signIn(req: Request, res: Response, next: NextFunction) {
+  async signIn(req: Request, res: Response, next: NextFunction) {
+    const accessToken = await authService.signin(req.body);
+
     res.status(StatusCodes.OK).json({
-      message: 'signIn ',
+      message: 'signIn Successfull',
+      data: accessToken,
     });
   }
 }
