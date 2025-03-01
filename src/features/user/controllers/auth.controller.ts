@@ -4,11 +4,11 @@ import authService from '../services/auth.service';
 
 class AuthController {
   async signUp(req: Request, res: Response, next: NextFunction) {
-    const user = await authService.signup(req.body);
+    const accessToken = await authService.signup(req.body);
 
     res.status(StatusCodes.CREATED).json({
       message: 'User signup successfull',
-      data: user,
+      data: accessToken,
     });
   }
 

@@ -1,5 +1,6 @@
 import prisma from '../../../globals/prisma';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 class AuthService {
   async signup(requestBody: any) {
@@ -15,7 +16,15 @@ class AuthService {
         role: 'CANDIDATE',
       },
     });
-    return user;
+
+    const accessToken = await jwt.sign(
+      { name, email, id: user.id, role: user.role },
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: '1d',
+      },
+    );
+    return accessToken;
   }
 }
 
