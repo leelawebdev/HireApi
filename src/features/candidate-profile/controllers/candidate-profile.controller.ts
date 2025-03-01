@@ -4,8 +4,21 @@ import candidateProfileService from '../services/candidate-profile.service';
 
 class CandidateProfileController {
   async getAll(req: Request, res: Response, next: NextFunction) {
+    const candidateProfiles = await candidateProfileService.getAll();
     res.status(StatusCodes.OK).json({
       message: 'candidate profile details',
+      data: candidateProfiles,
+    });
+  }
+
+  async getOne(req: Request, res: Response, next: NextFunction) {
+    const candidate = await candidateProfileService.getCandidateById(
+      +req.params.id,
+    );
+
+    res.status(StatusCodes.OK).json({
+      message: 'candidate profile got successfully',
+      data: candidate,
     });
   }
 

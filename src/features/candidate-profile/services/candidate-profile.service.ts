@@ -1,3 +1,4 @@
+import { BadRequestException } from 'src/globals/cores/error.core';
 import prisma from 'src/globals/prisma';
 
 class CandidateProfileService {
@@ -15,6 +16,23 @@ class CandidateProfileService {
         userId: currentUser.id,
       },
     });
+
+    return candidateProfile;
+  }
+
+  async getAll() {
+    const candidateProfiles = await prisma.candidateProfile.findMany();
+
+    return candidateProfiles;
+  }
+
+  async getCandidateById(id: number) {
+    const candidateProfile = await prisma.candidateProfile.findUnique({
+      where: { id },
+    });
+
+    if (!candidateProfile)
+      throw new BadRequestException(`Candidate with id ${id} doesnt exists`);
 
     return candidateProfile;
   }

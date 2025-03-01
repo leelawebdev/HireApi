@@ -5,7 +5,16 @@ import asyncWrapper from 'src/globals/cores/asyncwrapper.core';
 
 const candidateProfileRoutes = express.Router();
 
-candidateProfileRoutes.get('/', candidateProfileController.getAll);
+candidateProfileRoutes.get(
+  '/',
+  verifyUser,
+  asyncWrapper(candidateProfileController.getAll),
+);
+candidateProfileRoutes.get(
+  '/:id',
+  verifyUser,
+  asyncWrapper(candidateProfileController.getOne),
+);
 candidateProfileRoutes.post(
   '/',
   verifyUser,
