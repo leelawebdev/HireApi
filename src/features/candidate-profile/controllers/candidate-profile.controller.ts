@@ -44,6 +44,13 @@ class CandidateProfileController {
       data: candidate,
     });
   }
+
+  async remove(req: Request, res: Response, next: NextFunction) {
+    await candidateProfileService.remove(+req.params.id);
+    res.status(StatusCodes.OK).json({
+      message: 'candidate profile Deleted succesfully',
+    });
+  }
 }
 
 export default new CandidateProfileController();

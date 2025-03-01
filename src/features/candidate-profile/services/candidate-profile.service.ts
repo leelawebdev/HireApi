@@ -55,6 +55,14 @@ class CandidateProfileService {
     });
     return candidate;
   }
+
+  async remove(id: number) {
+    await this.getCandidateById(id);
+
+    await prisma.candidateProfile.delete({
+      where: { id },
+    });
+  }
 }
 
 export default new CandidateProfileService();

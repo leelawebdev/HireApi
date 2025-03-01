@@ -27,4 +27,10 @@ candidateProfileRoutes.patch(
   asyncWrapper(candidateProfileController.update),
 );
 
+candidateProfileRoutes.delete(
+  '/:id',
+  verifyUser,
+  asyncWrapper(candidateProfileController.remove),
+);
+
 export default candidateProfileRoutes;
