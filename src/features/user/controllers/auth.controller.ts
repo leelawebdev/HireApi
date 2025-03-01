@@ -33,6 +33,13 @@ class AuthController {
       data: req.currentUser,
     });
   }
+
+  async logout(req: Request, res: Response, next: NextFunction) {
+    res.clearCookie('accessToken');
+    res.status(StatusCodes.OK).json({
+      message: 'User Loggedout succesfully',
+    });
+  }
 }
 
 export default new AuthController();

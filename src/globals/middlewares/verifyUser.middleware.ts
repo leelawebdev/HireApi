@@ -9,7 +9,10 @@ export async function verifyUser(
 ) {
   //Get the access token
   const accessToken = req.cookies?.accessToken;
-  if (!accessToken) throw new BadRequestException('Please provide the token');
+  if (!accessToken) {
+    next(new BadRequestException('Please login again'));
+    return;
+  }
   //verify the accesstoken
   const user = (await jwt.verify(
     accessToken,
