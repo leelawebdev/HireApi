@@ -1,8 +1,9 @@
 import { BadRequestException } from 'src/globals/cores/error.core';
 import prisma from 'src/globals/prisma';
+import { ICandidateProfile } from '../interfaces/candidate-profile.interface';
 
 class CandidateProfileService {
-  async create(requestBody: any, currentUser: UserPayload) {
+  async create(requestBody: ICandidateProfile, currentUser: UserPayload) {
     const { address, birth_date, cv, full_name, gender, phone } = requestBody;
 
     const candidateProfile = await prisma.candidateProfile.create({
@@ -37,7 +38,7 @@ class CandidateProfileService {
     return candidateProfile;
   }
 
-  async update(id: number, requestBody: any) {
+  async update(id: number, requestBody: ICandidateProfile) {
     await this.getCandidateById(id);
 
     const { address, birth_date, cv, full_name, gender, phone } = requestBody;
