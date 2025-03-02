@@ -38,11 +38,34 @@ model CandidateProfile {
    cv String
    user User @relation(fields: [userId], references: [id])
    userId Int  @unique
+   candidateLanguages CandidateLanguage[]
+   
 }
 
 model Language {
   id Int @id @default(autoincrement())
   name String
+  candidateLanguages CandidateLanguage[]
+
+}
+
+model CandidateLanguage {
+  id Int @id @default(autoincrement())
+  candidateProfile CandidateProfile @relation(fields: [candidateProfileId], references: [id])
+  candidateProfileId Int
+  level Level @default(BASIC)
+
+  languages Language @relation(fields: [languageId], references: [id])
+  languageId Int
+
+  @@unique([languageId, candidateProfileId])
+
+}
+
+enum Level {
+  NATIVE
+  FLUENT
+  BASIC
 }
 
 enum Gender {
