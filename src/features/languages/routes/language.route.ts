@@ -2,6 +2,8 @@ import express from 'express';
 import languageController from '../controllers/language.controller';
 import asyncWrapper from 'src/globals/cores/asyncwrapper.core';
 import { verifyUser } from 'src/globals/middlewares/verifyUser.middleware';
+import { verifySchema } from 'src/globals/middlewares/verifySchema.middleware';
+import { languageSchema } from '../schemas/language.schema';
 
 const languageRouter = express.Router();
 
@@ -11,10 +13,16 @@ languageRouter.get(
   verifyUser,
   asyncWrapper(languageController.getSingleLanguage),
 );
-languageRouter.post('/', verifyUser, asyncWrapper(languageController.create));
+languageRouter.post(
+  '/',
+  verifyUser,
+  verifySchema(languageSchema),
+  asyncWrapper(languageController.create),
+);
 languageRouter.patch(
   '/:id',
   verifyUser,
+  verifySchema(languageSchema),
   asyncWrapper(languageController.update),
 );
 languageRouter.delete(

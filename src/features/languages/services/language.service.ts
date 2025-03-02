@@ -1,13 +1,50 @@
+import { BadRequestException } from 'src/globals/cores/error.core';
+import prisma from 'src/globals/prisma';
+import { ILanguage } from '../interfaces/language.interface';
+
 class LanguageService {
-  async getAllLanguages() {}
+  async getAllLanguages() {
+    const languages = await prisma.language.findMany();
 
-  async getLanguageById(id: number) {}
+    return languages;
+  }
 
-  async create(requestBody: any) {}
+  async getLanguageById(id: number) {
+    const language = await prisma.language.findUnique({
+      where: { id },
+    });
 
-  async update(id: number, requestBody: any) {}
+    if (!language) throw new BadRequestException('language not found');
+    return language;
+  }
 
-  async delete(id: number) {}
+  async create(requestBody: ILanguage) {
+    const { name } = requestBody;
+    const language = await prisma.language.create({
+      data: {
+        name,
+      },
+    });
+    return language;
+  }
+
+  async update(id: number, requestBody: ILanguage) {
+    await this.getLanguageById(id);
+    const { name } = requestBody;
+    const language = await prisma.language.update({
+      where: { id },
+      data: { name },
+    });
+
+    return language;
+  }
+
+  async delete(id: number) {
+    await this.getLanguageById(id);
+    await prisma.language.delete({
+      where: { id },
+    });
+  }
 }
 
 export default new LanguageService();
