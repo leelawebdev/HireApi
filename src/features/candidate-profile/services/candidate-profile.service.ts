@@ -64,6 +64,17 @@ class CandidateProfileService {
       where: { id },
     });
   }
+
+  async updateOpenToWork(id: number, openToWork: boolean) {
+    await this.getCandidateById(id);
+
+    await prisma.candidateProfile.update({
+      where: { id },
+      data: {
+        is_open_to_work: openToWork,
+      },
+    });
+  }
 }
 
 export default new CandidateProfileService();

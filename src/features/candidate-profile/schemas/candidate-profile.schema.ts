@@ -17,3 +17,7 @@ export const candidateProfileUpdateSchema = Joi.object({
   gender: Joi.string().optional(),
   phone: Joi.string().optional(),
 });
+
+export const candidateOpenToWorkSchema = Joi.object({
+  openToWork: Joi.boolean().required(),
+});

@@ -6,6 +6,7 @@ import { checkPermission } from 'src/globals/middlewares/checkPermission.middlew
 import { allowAccess } from 'src/globals/middlewares/allowAccess.middleware';
 import { verifySchema } from 'src/globals/middlewares/verifySchema.middleware';
 import {
+  candidateOpenToWorkSchema,
   candidateProfileCreateSchema,
   candidateProfileUpdateSchema,
 } from '../schemas/candidate-profile.schema';
@@ -37,6 +38,14 @@ candidateProfileRoutes.patch(
   checkPermission('CandidateProfile', 'userId'),
   verifySchema(candidateProfileUpdateSchema),
   asyncWrapper(candidateProfileController.update),
+);
+
+candidateProfileRoutes.patch(
+  '/opentowork/:id',
+  verifyUser,
+  checkPermission('CandidateProfile', 'userId'),
+  verifySchema(candidateOpenToWorkSchema),
+  asyncWrapper(candidateProfileController.toggleOpenToWork),
 );
 
 candidateProfileRoutes.delete(
